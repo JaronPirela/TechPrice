@@ -60,5 +60,5 @@ urllib3==2.3.0
 uvicorn==0.34.0
 webdriver-manager==4.0.2
 websocket-client==1.8.0
-whitenoise @ file:///C:/Users/Admin/Downloads/whitenoise-6.9.0-py3-none-any.whl#sha256=c8a489049b7ee9889617bb4c274a153f3d979e8f51d2efd0f5b403caf41c57df
+whitenoise @ file:///libs/whitenoise-6.9.0-py3-none-any.whl#sha256=c8a489049b7ee9889617bb4c274a153f3d979e8f51d2efd0f5b403caf41c57df
 wsproto==1.2.0
