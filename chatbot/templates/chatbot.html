@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<main class="d-flex flex-column min-vh-100">
+
+    <div class="container mt-5">
+        <div class="card card-body">
+            <div class="card-body">
+              <h5 class="card-title text-center">TechPrice ChatBot</h5>
+              <p class="card-text text-center">¿Con qué puedo ayudarte?</p>
+              
+            </div>
+          </div>
+
+        
+        <form method="post" class="text-center">
+            {% csrf_token %}
+            <button type="submit"class="btn btn-danger" name="clear_chat">Limpiar Chat</button>
+        </form>
+        <!-- Mostrar el historial de mensajes -->
+        {% if chat_history %}
+        <div class="mt-4 p-3 bg-light border rounded">
+            <h5>Historial de conversación:</h5>
+            <ul class="list-unstyled">
+                {% for chat in chat_history %}
+                <li><strong>👥 {{ user.username }}:</strong> {{ chat.user }}</li>
+                <hr>
+                <li><strong>👽 TechPrice:</strong> {{ chat.bot }}</li>
+                <hr>
+                {% endfor %}
+        </div>
+        {% endif %}
+        <form method="post" class="d-flex mt-3">
+            {% csrf_token %}
+            <label for="user_input" class="form-label"></label>
+            <input type="text" class="form-control me-2" id="user_input" name="user_input"
+                placeholder="Pregunta lo que quieras" required>
+            <button type="submit" class="btn btn-primary btn-send me-2">Enviar</button>
+            
+        </form>
+    </div>
+    
+    <footer class="mt-auto text-center py-3 bg-dark text-light">
+        <p>&copy; 2025 TechPrice - Todos los derechos reservados</p>
+    </footer>
+
+</main>
+{% else %}
+<div class="alert alert-danger text-center mt-3">
+  <strong>No estas autenticado. <a class="link-offset-2 link-underline link-underline-opacity-0" href="/">Iniciar Sesión</a></strong>
+</div>
+{% endif %}
+{% endblock %}

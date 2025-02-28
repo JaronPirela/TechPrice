@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container py-5">
+    <section>
+        <div class="card card-body">
+            <div class="card-body">
+              <h5 class="card-title text-center">¡Bienvenido {{ user.username }}!</h5>
+              <div class="text-center">
+                    <a class="btn btn-dark" href="/logout/">Cerrar Sesion</a>
+              </div>
+            </div>
+          </div>
+    </section>
+</main>
+
+{% endblock %}

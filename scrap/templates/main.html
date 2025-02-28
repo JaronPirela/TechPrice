@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<main class="container py-5">
+  <section>
+    <div class="card card-body">
+      <div class="card-body">
+        <h1 class="card-title text-center">Buscar en Mercadolibre</h5>
+        <p class="card-text text-center">Realiza cualquier busqueda relacionada con tecnología</p>
+        
+      </div>
+    </div>
+    <div class="card card-body">
+      <form class="d-flex" role="search">
+        <label for="product"></label>
+        <input class="form-control me-2" type="text" value="{{request.GET.product}}" name="product" id="product"
+          placeholder="Buscar producto" aria-label="Search">
+        <button class="btn btn-secondary" type="submit" value="submit">Buscar</button>
+      </form>
+
+    </div>
+    {% if product_info_list %}
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product_info in product_info_list %}
+        <tr>
+          <td><a class="link-offset-2 link-underline link-underline-opacity-0" href="{{ product_info.url }}"
+              target="_blank">{{ product_info.name }}</a></td>
+          <td>{{ product_info.price }}</td>
+          <td>
+            <a href="{{ product_info.url }}" target="_blank"><img src="{{ product_info.image_url }}"
+                alt="{{ product_info.name }}" style="width: 100px;"></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    {% if error %}
+                <p class="alert alert-warning text-center mt-3" style="color: red;">{{ error }}</p>
+    {% endif %}
+    {% endif %}
+  </section>
+
+
+</main>
+
+{% if error_message %}
+<!-- Modal de error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error de API</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ error_message }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mostrar el modal si hay un mensaje de error
+  var errorMessage = "{{ error_message }}";
+  if (errorMessage) {
+    var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    myModal.show();
+  }
+</script>
+
+{% endif %}
+{% else %}
+<div class="alert alert-danger text-center mt-3">
+  <strong>No estas autenticado. <a class="link-offset-2 link-underline link-underline-opacity-0" href="/">Iniciar Sesión</a></strong>
+</div>
+{% endif %}
+{% endblock %}
